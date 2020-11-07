@@ -1,9 +1,11 @@
 import React from 'react';
 import './App.css';
+import TagList from './TagList'
+import LogoComp from './LogoComp'
 
 // TODO:
 // FACILE
-// 1) dividere i componenti in file diversi
+// 1) dividere i componenti in file diversi - DONE 
 // 2) this.state.currentQuote
 //    creare un componente che visualizzi, oltre che la citazione stessa, anche:
 //    - lista di tag associati alla citazione (array "tags")
@@ -27,24 +29,6 @@ const RANDOMURL = 'https://api.tronalddump.io/random/quote'
 // const SEARCHURL = 'https://api.tronalddump.io/search/quote'
 // const ALLTAGSURL = 'https://api.tronalddump.io/tag'
 
-const TagList = (props) => {
-  return (
-  <p>
-    {props.storedTags.map((tag, index) => 
-      <span key={`tag-${index}`}>
-        <a
-          name={tag}
-          onClick={props.onTagClick}
-          className={props.selectedTag === tag ? "App-link-selected" : "App-link"}
-          href="#"
-        >
-          {tag}
-        </a>
-        {index === props.storedTags.length - 1 ? '' : ' | ' }
-      </span>
-    )}
-  </p>
-)}
 
 class App extends React.Component {
   constructor(props) {
@@ -147,6 +131,11 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
+          <LogoComp 
+          logo={logo}
+          loading = {this.state.loading}
+          />
+          
           <img src={logo} className={`App-logo${this.state.loading ? " App-logo-spinning" : ""}`} alt="logo" />
           <p>
             <button class="button" id="randombutton" type="button" onClick={this.onModeClick('random')} disabled={!this.state.isListMode}>
