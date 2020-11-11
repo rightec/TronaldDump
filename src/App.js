@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import TagList from './TagList'
 import LogoComp from './LogoComp'
+import ViewSpeech from './ViewSpeech'
 
 // TODO:
 // FACILE
@@ -136,7 +137,6 @@ class App extends React.Component {
           loading = {this.state.loading}
           />
           
-          <img src={logo} className={`App-logo${this.state.loading ? " App-logo-spinning" : ""}`} alt="logo" />
           <p>
             <button class="button" id="randombutton" type="button" onClick={this.onModeClick('random')} disabled={!this.state.isListMode}>
               <h3> RANDOM MODE </h3> 
@@ -157,10 +157,34 @@ class App extends React.Component {
                 </h2>
               </button>
             </p>
-            <p>{this.state.currentQuote.value}</p>
+            {/*<p>{this.state.currentQuote.value}</p>*/}
           </>)}
           <p>Citazioni salvate: {this.state.storedQuotes.length}</p>
           <p>Tag salvati: {this.state.storedTags.length}</p>
+          {console.log('this.state.currentQuote', this.state.currentQuote)}
+          {((this.state.currentQuote.length !==0) && 
+          (!this.state.isListMode)) ? (
+            <ViewSpeech
+            quote={this.state.currentQuote.value} 
+            tags={this.state.currentQuote.tags}
+            data={this.state.currentQuote.appeared_at}
+            link={(this.state.currentQuote._links !== undefined)  ? (
+              <p>
+                {this.state.currentQuote._links.self.href}
+              </p>
+            ): null 
+            }   
+            />
+          ): null 
+          }
+
+          {console.log('this.state.currentQuote._links', this.state.currentQuote._links)}
+          {(this.state.currentQuote._links !== undefined)  ? (
+            <p>
+              {this.state.currentQuote._links.self.href}
+            </p>
+          ): null 
+          }            
         </header>
       </div>
     );
